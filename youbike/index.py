@@ -56,12 +56,6 @@ class Window(tk.Tk):
         else:
             search_data = datasource.search_sitename(word=input_word)
             self.youbikeTreeView.update_content(search_data)
-        
-        
-        
-
-        
-
 
 def main():    
     def update_data(w:Window)->None:
@@ -70,8 +64,7 @@ def main():
         lastest_data = datasource.lastest_datetime_data()
         w.youbikeTreeView.update_content(lastest_data)
 
-        w.after(3*60*1000,update_data,w) #每隔3分鐘
-          
+        w.after(10*60*1000,update_data,w) #每隔10分鐘
 
     window = Window()
     window.title('台北市youbike2.0')
