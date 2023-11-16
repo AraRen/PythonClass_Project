@@ -1,23 +1,29 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk,messagebox
+import tkinter.font as tkFont
 from youbikeTreeView import YoubikeTreeView
-from tkinter import messagebox
 from threading import Timer
-import datasource
+import datasource as ds
+
+class TKLable(tk.Label):
+    def __init__(self,parents,**kwargs):
+        super().__init__(parents,**kwargs)
+        helv26=tkFont.Font(family='微軟正黑體',size=12,weight='bold') #先設定字體格式
+        self.config(font=helv26) #,foreground="#FFFFFF"
 
 class Window(tk.Tk):
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
         #---------更新資料庫資料-----------------#
         try:
-            datasource.updata_sqlite_data()
+            ds.updata_sqlite_data()
         except Exception:
             messagebox.showerror("錯誤",'網路不正常\n將關閉應用程式\n請稍後再試')
             self.destroy()
         
 
         #---------建立介面------------------------
-        #print(datasource.lastest_datetime_data())
+        #print(ds.lastest_datetime_data())
         topFrame = tk.Frame(self,relief=tk.GROOVE,borderwidth=1)
         tk.Label(topFrame,text="台北市youbike及時資料",font=("arial", 20), bg="#333333", fg='#ffffff',padx=10,pady=10).pack(padx=20,pady=20)
         topFrame.pack(pady=30)
@@ -38,6 +44,23 @@ class Window(tk.Tk):
         # 將frames放到notebook
         notebook.add(self.KeywordFrame, text='以站點名稱搜尋')
         notebook.add(MapFrame, text='以地圖搜尋')
+        #------區域時段搜尋框架--------
+        #放選單的框架
+        mainFrame = tk.Frame(self.KeywordFrame,width=800,height=500)
+        mainFrame.pack()
+
+        #建立關鍵字的label
+        TKLable(mainFrame, text="以下可擇一搜尋，搜尋到的結果雙擊兩下可以到地圖區看到位置",bd=3).grid(row=0,column=0,columnspan=4)
+
+        #建立Combo的Label
+        TKLable(mainFrame, text="請選擇行政區",bd=3).grid(row=1,column=0)
+        #抓取台北行政區
+        self.TaipeiArea_dict=ds.Get_TaipeiArea()
+        #台北市行政區下拉選單
+        self.TaipeiAreaValue = tk.StringVar()
+        self.TaipeiArea_Combo = ttk.Combobox(mainFrame,values=list(self.TaipeiArea_dict.keys()),justify="center",textvariable=self.TaipeiAreaValue)
+        self.TaipeiArea_Combo.grid(row=1,column=1)  
+        self.TaipeiArea_Combo.current(0)
     #--↑↑--↑↑--↑↑--↑↑--↑↑--參考內容--↑↑--↑↑--↑↑--↑↑--↑↑--↑↑--↑↑--#
 
         #----------建立搜尋------------------------
@@ -67,17 +90,17 @@ class Window(tk.Tk):
         #使用者輸入的文字
         input_word = searchEntry.get()
         if input_word == "":
-            lastest_data = datasource.lastest_datetime_data()
+            lastest_data = ds.lastest_datetime_data()
             self.youbikeTreeView.update_content(lastest_data)
         else:
-            search_data = datasource.search_sitename(word=input_word)
+            search_data = ds.search_sitename(word=input_word)
             self.youbikeTreeView.update_content(search_data)
 
 def main():    
     def update_data(w:Window)->None:
-        datasource.updata_sqlite_data()
+        ds.updata_sqlite_data()
         #-----------更新treeView資料---------------
-        lastest_data = datasource.lastest_datetime_data()
+        lastest_data = ds.lastest_datetime_data()
         w.youbikeTreeView.update_content(lastest_data)
 
         w.after(10*60*1000,update_data,w) #每隔10分鐘
