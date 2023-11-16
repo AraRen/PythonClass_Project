@@ -13,7 +13,7 @@ class Window(tk.Tk):
             datasource.updata_sqlite_data()
         except Exception:
             messagebox.showerror("錯誤",'網路不正常\n將關閉應用程式\n請稍後再試')
-            self.destroy()           
+            self.destroy()
         
 
         #---------建立介面------------------------
@@ -23,13 +23,29 @@ class Window(tk.Tk):
         topFrame.pack(pady=30)
         #---------------------------------------
 
+    #--↓↓--↓↓--↓↓--↓↓--↓↓--參考內容--↓↓--↓↓--↓↓--↓↓--↓↓--↓↓--↓↓--#
+        #新增notebook(分頁)
+        notebook = ttk.Notebook(self)
+        notebook.pack(pady=0, expand=True)
+
+        #新增frames
+        MapFrame = ttk.Frame(notebook, width=800, height=500)
+        self.KeywordFrame = ttk.Frame(notebook, width=800, height=500)
+        
+        MapFrame.pack(fill='both', expand=True)
+        self.KeywordFrame.pack(fill='both', expand=True)
+        
+        # 將frames放到notebook
+        notebook.add(self.KeywordFrame, text='以站點名稱搜尋')
+        notebook.add(MapFrame, text='以地圖搜尋')
+    #--↑↑--↑↑--↑↑--↑↑--↑↑--參考內容--↑↑--↑↑--↑↑--↑↑--↑↑--↑↑--↑↑--#
 
         #----------建立搜尋------------------------
         middleFrame = ttk.LabelFrame(self,text='')
         tk.Label(middleFrame,text='站點名稱搜尋:').pack(side='left')
         search_entry = tk.Entry(middleFrame)
         search_entry.bind("<KeyRelease>", self.OnEntryClick)
-        search_entry.pack(side='left')        
+        search_entry.pack(side='left')
         middleFrame.pack(fill='x',padx=20)
         #----------------------------------------
 
@@ -70,7 +86,7 @@ def main():
     window.title('台北市youbike2.0')
     #window.geometry('600x300')
     window.resizable(width=False,height=False)
-    update_data(window)          
+    update_data(window)
     window.mainloop()
 
 if __name__ == '__main__':

@@ -91,4 +91,21 @@ def search_sitename(word:str) -> list[tuple]:
     conn.close()
     return rows
 
-
+#抓台北郵遞區域
+def Get_TaipeiArea():
+    #寫死
+    TaipeiArea = {"全區":"A00",
+                  "松山區":"A01",
+                   "大安區":"A02",
+                   "中正區":"A03",
+                   "萬華區":"A05",
+                   "大同區":"A09",
+                   "中山區":"A10",
+                   "文山區":"A11",
+                   "南港區":"A13",
+                   "內湖區":"A14",
+                   "士林區":"A15",
+                   "北投區":"A16",
+                   "信義區":"A17"
+                   }
+    return TaipeiArea
