@@ -42,12 +42,9 @@ def __insert_data(conn:sqlite3.Connection,values:list[any])->None:
     REPLACE INTO 台北市youbike(站點名稱,行政區,更新時間,地址,總車輛數,可借,可還)
         VALUES(?,?,?,?,?,?,?)
     '''
-    data = __download_youbike_data()
-    index = data.index({'sna': values[0]})
-    if index >= 0:
-        cursor.execute(sql,values)    
-        conn.commit()
-        cursor.close()
+    cursor.execute(sql,values)    
+    conn.commit()
+    cursor.close()
 
 def updata_sqlite_data()->None:
     '''
@@ -93,3 +90,5 @@ def search_sitename(word:str) -> list[tuple]:
     cursor.close()
     conn.close()
     return rows
+
+
