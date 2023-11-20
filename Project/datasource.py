@@ -1,5 +1,7 @@
 import requests
 import sqlite3
+import  json, ssl, urllib.request
+import xml.etree.ElementTree as ET  # for parsing XML
 
 __all__ = ['updata_sqlite_data']
 
@@ -92,7 +94,7 @@ def search_sitename(word:str) -> list[tuple]:
     return rows
 
 #抓台北郵遞區域
-def Get_TaipeiArea():
+#def Get_TaipeiArea():
     #寫死
     TaipeiArea = {"全區":"A00",
                   "松山區":"A01",
@@ -109,3 +111,14 @@ def Get_TaipeiArea():
                    "信義區":"A17"
                    }
     return TaipeiArea
+
+#def Get_AreaVillage(towncode01):
+    AreaVillage_list=['全部']  #list
+    if towncode01!='A00':
+        url=f"https://api.nlsc.gov.tw/other/ListVillage/A/{towncode01}"
+        response=requests.get(url=url)
+        xml = ET.fromstring(response.content)  # parse XML
+
+    
+        for i in xml.iter('villageName'):  
+            AreaVillage_list.append(i.text)

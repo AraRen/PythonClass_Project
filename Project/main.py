@@ -35,8 +35,8 @@ class Window(tk.Tk):
         notebook.pack(pady=0, expand=True)
 
         #新增frames
-        MapFrame = ttk.Frame(notebook, width=800, height=500)
-        self.KeywordFrame = ttk.Frame(notebook, width=800, height=500)
+        MapFrame = ttk.Frame(notebook, width=800, height=50)
+        self.KeywordFrame = ttk.Frame(notebook, width=800, height=50)
         
         MapFrame.pack(fill='both', expand=True)
         self.KeywordFrame.pack(fill='both', expand=True)
@@ -46,21 +46,21 @@ class Window(tk.Tk):
         notebook.add(MapFrame, text='以地圖搜尋')
         #------區域時段搜尋框架--------
         #放選單的框架
-        mainFrame = tk.Frame(self.KeywordFrame,width=800,height=500)
-        mainFrame.pack()
+#        mainFrame = tk.Frame(self.KeywordFrame,width=800,height=500)
+#        mainFrame.pack()
 
         #建立關鍵字的label
-        TKLable(mainFrame, text="以下可擇一搜尋，搜尋到的結果雙擊兩下可以到地圖區看到位置",bd=3).grid(row=0,column=0,columnspan=4)
+#        TKLable(mainFrame, text="以下可擇一搜尋，搜尋到的結果雙擊兩下可以到地圖區看到位置",bd=3).grid(row=0,column=0,columnspan=4)
 
         #建立Combo的Label
-        TKLable(mainFrame, text="請選擇行政區",bd=3).grid(row=1,column=0)
+#        TKLable(mainFrame, text="請選擇行政區",bd=3).grid(row=1,column=0)
         #抓取台北行政區
-        self.TaipeiArea_dict=ds.Get_TaipeiArea()
+#        self.TaipeiArea_dict=ds.Get_TaipeiArea()
         #台北市行政區下拉選單
-        self.TaipeiAreaValue = tk.StringVar()
-        self.TaipeiArea_Combo = ttk.Combobox(mainFrame,values=list(self.TaipeiArea_dict.keys()),justify="center",textvariable=self.TaipeiAreaValue)
-        self.TaipeiArea_Combo.grid(row=1,column=1)  
-        self.TaipeiArea_Combo.current(0)
+#        self.TaipeiAreaValue = tk.StringVar()
+#        self.TaipeiArea_Combo = ttk.Combobox(mainFrame,values=list(self.TaipeiArea_dict.keys()),justify="center",textvariable=self.TaipeiAreaValue)
+#        self.TaipeiArea_Combo.grid(row=1,column=1)  
+#        self.TaipeiArea_Combo.current(0)
     #--↑↑--↑↑--↑↑--↑↑--↑↑--參考內容--↑↑--↑↑--↑↑--↑↑--↑↑--↑↑--↑↑--#
 
         #----------建立搜尋------------------------
@@ -108,8 +108,9 @@ def main():
     window = Window()
     window.title('台北市youbike2.0')
     #window.geometry('600x300')
-    window.resizable(width=False,height=False)
+    #window.resizable(width=False,height=False)
     update_data(window)
+    window.configure(background='#ffffff')
     window.mainloop()
 
 if __name__ == '__main__':
