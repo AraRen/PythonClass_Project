@@ -12,11 +12,13 @@ def __download_youbike_data()->list[dict]:
     下載台北市youbike資料2.0
     https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json
     '''
+    global DATA
     youbike_url = 'https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json'
     response = requests.get(youbike_url)
     response.raise_for_status()
     print("數據更新成功")
-    return response.json()
+    DATA = response.json()
+    return DATA
 
 def __create_table(conn:sqlite3.Connection):    
     cursor = conn.cursor()

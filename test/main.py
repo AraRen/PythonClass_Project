@@ -35,21 +35,18 @@ class Window(tk.Tk):
         notebook.pack(pady=0, expand=True)
 
         #新增frames
+        #地圖的待新增內容--
         MapFrame = ttk.Frame(notebook, width=800, height=50)
-        self.KeywordFrame = ttk.Frame(notebook, width=800, height=50)
-        
         MapFrame.pack(fill='both', expand=True)
-        
-        #將frames放到notebook
         notebook.add(MapFrame, text='以行政區分類地圖顯示定位')
-
         
+
         #bottomFrame.pack(fill='both', expand=True)
         #notebook.add(bottomFrame, text='各站點清單附帶搜尋功能')
         #------區域時段搜尋框架--------
         #放選單的框架
-        mainFrame = tk.Frame(MapFrame,width=1000,height=200)
-        mainFrame.pack()
+        #mainFrame = tk.Frame(MapFrame,width=1000,height=200)
+        #mainFrame.pack()
 
         #建立關鍵字的label
 #        TKLable(mainFrame, text="以下可擇一搜尋，搜尋到的結果雙擊兩下可以到地圖區看到位置",bd=3).grid(row=0,column=0,columnspan=4)
@@ -84,11 +81,10 @@ class Window(tk.Tk):
         vsb = ttk.Scrollbar(bottomFrame, orient="vertical", command=self.youbikeTreeView.yview)
         vsb.pack(side='left',fill='y')
         self.youbikeTreeView.configure(yscrollcommand=vsb.set)
-        bottomFrame.pack(pady=(0,30))
         #-------------------------------------------
 
-        
-        bottomFrame.pack(fill='both', expand=True)
+        #將frames放到notebook
+        bottomFrame.pack(pady=(0,30),fill='both', expand=True)
         notebook.add(bottomFrame, text='各站點清單附帶搜尋功能')
     
     def OnEntryClick(self,event):
@@ -109,7 +105,7 @@ def main():
         lastest_data = ds.lastest_datetime_data()
         w.youbikeTreeView.update_content(lastest_data)
 
-        w.after(10*60*1000,update_data,w) #每隔10分鐘
+        w.after(10*60*10000,update_data,w) #每隔10分鐘持續七天
 
     window = Window()
     window.title('台北市youbike2.0')

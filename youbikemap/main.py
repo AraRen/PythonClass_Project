@@ -28,9 +28,7 @@ class Window(tk.Tk):
             if areaName == site['sarea']:
                 areaList.append(site)
 
-
-        MapDialog(self,title=areaName,info=areaList)
-
+        self.map_widget = MapDialog(self,title=areaName,info=areaList)
 
 
 if __name__ == "__main__":
