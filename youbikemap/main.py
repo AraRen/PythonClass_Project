@@ -6,7 +6,7 @@ class Window(tk.Tk):
     def __init__(self):
         super().__init__()
         titleFrame = tk.Frame(self, bg="#333333",borderwidth=2,relief=tk.SUNKEN,padx=50,pady=50)
-        tk.Label(titleFrame,text="台北市youbike2.0即時資訊",bg="#333333",fg="#cccccc",font=('arial',20)).pack()
+        tk.Label(titleFrame,text="台北市 YouBike 2.0 站點即時資訊地圖",bg="#333333",fg="#cccccc",font=('arial',20)).pack()
         updateButton = tk.Button(titleFrame,text="立即更新",bg="#dbdbdb",fg="#333333",font=('arial',16),command=lambda :dataSource.download())
         updateButton.pack(pady=(20,0))
         titleFrame.pack(pady=20)
@@ -35,5 +35,6 @@ class Window(tk.Tk):
 
 if __name__ == "__main__":
     root = Window()
-    root.title("台北市youbike2.0即時資訊")
+    root.title("台北市 YouBike 2.0 站點即時資訊地圖")
+    root.iconbitmap(default='youbikemap\YouBike2.0_white.ico')
     root.mainloop()
