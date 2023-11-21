@@ -14,7 +14,7 @@ class Window(tk.Tk):
         col = 5
         for i in range(len(dataSource.AREA)):
             if  i % col == 0:
-                topFrame = tk.Frame(self, bg="#cccccc", borderwidth=2, relief="groove")
+                topFrame = tk.Frame(self, bg="#cccccc", borderwidth=2, relief="raised")
                 topFrame.pack(padx=20, pady=20)
             areaName = dataSource.AREA[i]
             btn1 = tk.Button(topFrame, text=areaName, padx=20, pady=20)
