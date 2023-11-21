@@ -17,7 +17,7 @@ class YoubikeTreeView(ttk.Treeview):
         self.heading('bemp',text='可還')
 
         #----------設定欄位寬度------------
-        self.column('sno',width=200)
+        self.column('sno',width=100)
         self.column('sna',width=200)
         self.column('sarea',width=50)
         self.column('mday',width=150)
