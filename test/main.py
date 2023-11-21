@@ -25,8 +25,8 @@ class Window(tk.Tk):
         #---------建立介面------------------------
         #print(ds.lastest_datetime_data())
         topFrame = tk.Frame(self,relief=tk.GROOVE,borderwidth=1)
-        tk.Label(topFrame,text="台北市youbike及時資料",font=("arial", 20), bg="#333333", fg='#ffffff',padx=10,pady=10).pack(padx=20,pady=20)
-        topFrame.pack(pady=30)
+        tk.Label(topFrame,text="台北市youbike及時資料",font=("arial", 24), bg="#333333", fg='#ffffff',padx=10,pady=10).pack(padx=10,pady=20)
+        topFrame.pack(pady=20)
         #---------------------------------------
 
     #--↓↓--↓↓--↓↓--↓↓--↓↓--參考內容--↓↓--↓↓--↓↓--↓↓--↓↓--↓↓--↓↓--#
@@ -39,14 +39,16 @@ class Window(tk.Tk):
         self.KeywordFrame = ttk.Frame(notebook, width=800, height=50)
         
         MapFrame.pack(fill='both', expand=True)
-        self.KeywordFrame.pack(fill='both', expand=True)
         
         #將frames放到notebook
-        notebook.add(self.KeywordFrame, text='以站點名稱搜尋')
-        notebook.add(MapFrame, text='以地圖搜尋')
+        notebook.add(MapFrame, text='以行政區分類地圖顯示定位')
+
+        
+        #bottomFrame.pack(fill='both', expand=True)
+        #notebook.add(bottomFrame, text='各站點清單附帶搜尋功能')
         #------區域時段搜尋框架--------
         #放選單的框架
-        mainFrame = tk.Frame(MapFrame,width=800,height=500)
+        mainFrame = tk.Frame(MapFrame,width=1000,height=200)
         mainFrame.pack()
 
         #建立關鍵字的label
@@ -82,8 +84,12 @@ class Window(tk.Tk):
         vsb = ttk.Scrollbar(bottomFrame, orient="vertical", command=self.youbikeTreeView.yview)
         vsb.pack(side='left',fill='y')
         self.youbikeTreeView.configure(yscrollcommand=vsb.set)
-        bottomFrame.pack(pady=(0,30),padx=20)
+        bottomFrame.pack(pady=(0,30))
         #-------------------------------------------
+
+        
+        bottomFrame.pack(fill='both', expand=True)
+        notebook.add(bottomFrame, text='各站點清單附帶搜尋功能')
     
     def OnEntryClick(self,event):
         searchEntry = event.widget
