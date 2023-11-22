@@ -34,5 +34,5 @@ class Window(tk.Tk):
 if __name__ == "__main__":
     root = Window()
     root.title("台北市 YouBike 2.0 站點即時資訊地圖")
-    root.iconbitmap(default='youbikemap\YouBike2.0_white.ico')
+    root.iconbitmap(default='youbikemap\images\Bike_blue41x35.ico') # 檔名字首要大寫。小寫會出錯。
     root.mainloop()
