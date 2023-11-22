@@ -71,7 +71,9 @@ class MapDialog(Dialog):
 
         self.map_widget = tkintermapview.TkinterMapView(master,width=800, height=600, corner_radius=0)
         self.map_widget.pack(fill="both", expand=True)
-        self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=19) # 當 zoom >= 20，Google Map 的 YouBike站點 會顯示站點名稱，會跟我們的 marker text 重疊顯示。
+        # self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=20)
+        # 當 zoom >= 20，Google Map 的 YouBike站點 會顯示站點名稱，會跟我們的 marker text 重疊顯示。
+        self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=19)
         # map_widget.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         self.map_widget.set_position(25.1150128,121.5361573)  # 設置初始座標(台北職能學院)
         self.map_widget.set_zoom(14)
@@ -82,8 +84,14 @@ class MapDialog(Dialog):
 
         #建立marker
         for site in self.info:
+            """
             marker = self.map_widget.set_marker(site['lat'],site['lng'],marker_color_outside='white',font=('arial',10),
                                                 text=f"{site['sna']}\n可借:{site['sbi']}\n可還:{site['bemp']}",
+                                                icon=Bike_image,command=self.click1)
+            """
+            marker = self.map_widget.set_marker(site['lat'],site['lng'],marker_color_outside='white',
+                                                font=('arial bold',10),
+                                                text=f"{site['sna']}\n\t可借:{site['sbi']}\n\t可還:{site['bemp']}",
                                                 icon=Bike_image,command=self.click1)
             marker.data = site
             
