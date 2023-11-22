@@ -12,13 +12,21 @@ def __download_youbike_data()->list[dict]:
     下載台北市youbike資料2.0
     https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json
     '''
-    global DATA
     youbike_url = 'https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json'
     response = requests.get(youbike_url)
     response.raise_for_status()
     print("數據更新成功")
-    DATA = response.json()
-    return DATA
+    return response.json()
+
+def download():
+    global DATA
+    url = "https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json"
+    response = requests.get(url)
+    if response.status_code == 200:
+        DATA = response.json()
+
+#執行一次
+download()
 
 def __create_table(conn:sqlite3.Connection):    
     cursor = conn.cursor()
@@ -45,8 +53,8 @@ def __create_table(conn:sqlite3.Connection):
 def __insert_data(conn:sqlite3.Connection,values:list[any])->None:
     cursor = conn.cursor()
     sql = '''
-    REPLACE INTO 台北市youbike(ID,站點名稱,行政區,更新時間,地址,總車輛數,可借,可還)
-        VALUES(?,?,?,?,?,?,?,?)
+    REPLACE INTO 台北市youbike(站點名稱,行政區,更新時間,地址,總車輛數,可借,可還)
+        VALUES(?,?,?,?,?,?,?)
     '''
     cursor.execute(sql,values)    
     conn.commit()
@@ -60,7 +68,7 @@ def updata_sqlite_data()->None:
     conn = sqlite3.connect("台北市youbike.db")    
     __create_table(conn)
     for item in data:
-        __insert_data(conn,[item['sno'],item['sna'],item['sarea'],item['mday'],item['ar'],item['tot'],item['sbi'],item['bemp']])
+        __insert_data(conn,[item['sna'],item['sarea'],item['mday'],item['ar'],item['tot'],item['sbi'],item['bemp']])
     conn.close()
 
 def lastest_datetime_data()->list[tuple]:

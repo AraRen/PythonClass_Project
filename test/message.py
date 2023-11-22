@@ -66,13 +66,13 @@ class MapDialog(Dialog):
         self.search_bar_clear = tk.Button(master=searchFrame, width=8, text="清除", command=self.MapClear)
         self.search_bar_clear.grid(row=0, column=2, pady=10, padx=10)
 
-        
+
         self.map_widget = tkintermapview.TkinterMapView(master,width=800, height=600, corner_radius=0)
         self.map_widget.pack(fill="both", expand=True)
         self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
         # map_widget.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         self.map_widget.set_position(25.1150128,121.5361573)  # 設置初始座標(台北職能學院)
-        self.map_widget.set_zoom(15)
+        self.map_widget.set_zoom(14)
 
         #建立marker
         for site in self.info:
@@ -86,9 +86,31 @@ class MapDialog(Dialog):
         marker.marker_color_outside='black'
         self.map_widget.set_position(marker.data['lat'], marker.data['lng'])
         '''
+        '''
+        Update marker text and color, and center the map on the marker's location.
+        '''
+        marker.text = marker.data['sna']
+        marker.marker_color_outside = 'black'
+
+        # Center the map on the marker's location
+        lat, lng = marker.data['lat'], marker.data['lng']
+        self.map_widget.set_position(lat, lng)
+        self.map_widget.set_zoom(19)
 
 
+    def center_map(self):
+        lat_sum = 0
+        lng_sum = 0
+        num_markers = len(self.marker_list)
 
+        for marker in self.marker_list:
+            lat_sum += marker.lat
+            lng_sum += marker.lng
+
+        lat_avg = lat_sum / num_markers
+        lng_avg = lng_sum / num_markers
+
+        self.map_widget.set_position(lat_avg, lng_avg)
 
 
     def buttonbox(self):
