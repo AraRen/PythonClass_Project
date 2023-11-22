@@ -76,31 +76,31 @@ class ShowDetail(Dialog):
         tk.Label(mainFrame,text="可還").grid(column=0, row=6)
         snaVar = tk.StringVar()
         snaVar.set(self.sna)
-        tk.Entry(mainFrame,textvariable=snaVar,state='disabled').grid(column=1,row=0)
+        tk.Entry(mainFrame,textvariable=snaVar,state='disabled',width=42).grid(column=1,row=0)
 
         mdayVar = tk.StringVar()
         mdayVar.set(self.mday)
-        tk.Entry(mainFrame,textvariable=mdayVar,state='disabled').grid(column=1,row=1)
+        tk.Entry(mainFrame,textvariable=mdayVar,state='disabled',width=42).grid(column=1,row=1)
 
         sareaVar = tk.StringVar()
         sareaVar.set(self.sarea)
-        tk.Entry(mainFrame,textvariable=sareaVar,state='disabled').grid(column=1,row=2)
+        tk.Entry(mainFrame,textvariable=sareaVar,state='disabled',width=42).grid(column=1,row=2)
 
         arVar = tk.StringVar()
         arVar.set(self.ar)
-        tk.Entry(mainFrame,textvariable=arVar,state='disabled').grid(column=1,row=3)
+        tk.Entry(mainFrame,textvariable=arVar,state='disabled',width=42).grid(column=1,row=3)
 
         totVar = tk.StringVar()
         totVar.set(self.tot)
-        tk.Entry(mainFrame,textvariable=totVar,state='disabled').grid(column=1,row=4)
+        tk.Entry(mainFrame,textvariable=totVar,state='disabled',width=42).grid(column=1,row=4)
 
         sbiVar = tk.StringVar()
         sbiVar.set(self.sbi)
-        tk.Entry(mainFrame,textvariable=sbiVar,state='disabled').grid(column=1,row=5)
+        tk.Entry(mainFrame,textvariable=sbiVar,state='disabled',width=42).grid(column=1,row=5)
 
         bempVar = tk.StringVar()
         bempVar.set(self.bemp)
-        tk.Entry(mainFrame,textvariable=bempVar,state='disabled').grid(column=1,row=6)
+        tk.Entry(mainFrame,textvariable=bempVar,state='disabled',width=42).grid(column=1,row=6)
 
     def buttonbox(self):
         '''
