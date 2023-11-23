@@ -10,6 +10,6 @@ def download():
     if response.status_code == 200:
         print("下載成功")
         DATA = response.json()
-
+        
 #執行一次
 download()
