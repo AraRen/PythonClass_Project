@@ -89,10 +89,16 @@ class MapDialog(Dialog):
                                                 text=f"{site['sna']}\n可借:{site['sbi']}\n可還:{site['bemp']}",
                                                 icon=Bike_image,command=self.click1)
             """
-            marker = self.map_widget.set_marker(site['lat'],site['lng'],marker_color_outside='white',
-                                                font=('arial bold',10),
+            if site['sbi'] == 0:
+                textcolor = '#FF5151'
+            else:
+                textcolor = '#0066CC'
+
+            marker = self.map_widget.set_marker(site['lat'], site['lng'],
+                                                text_color=textcolor,
+                                                font=('arial bold', 10),
                                                 text=f"{site['sna']}\n\t可借:{site['sbi']}\n\t可還:{site['bemp']}",
-                                                icon=Bike_image,command=self.click1)
+                                                icon=Bike_image, command=self.click1)
             marker.data = site
             
 
@@ -105,13 +111,13 @@ class MapDialog(Dialog):
         '''
         Update marker text and color, and center the map on the marker's location.
         '''
-        marker.text = marker.data['sna']
-        marker.marker_color_outside = 'black'
+        #marker.text = marker.data['sna']
+        #marker.marker_color_outside = 'black'
 
         # Center the map on the marker's location
         lat, lng = marker.data['lat'], marker.data['lng']
         self.map_widget.set_position(lat, lng)
-        self.map_widget.set_zoom(19)
+        self.map_widget.set_zoom(18)
 
 
     def center_map(self):

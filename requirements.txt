@@ -11,3 +11,4 @@ flask
 psycopg2-binary
 Pillow
 tkintermapview
+PyQt5

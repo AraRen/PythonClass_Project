@@ -28,7 +28,16 @@ class Window(tk.Tk):
         tk.Label(topFrame,text="台北市youbike及時資料",font=("arial", 24), bg="#333333", fg='#ffffff',padx=10,pady=10).pack(padx=10,pady=20)
         topFrame.pack(pady=20)
         #---------------------------------------
-
+        
+        #----------建立搜尋------------------------
+        middleFrame = ttk.LabelFrame(self,text='')
+        tk.Label(middleFrame,text='站點名稱搜尋:').pack(side='left')
+        search_entry = tk.Entry(middleFrame)
+        search_entry.bind("<KeyRelease>", self.OnEntryClick)
+        search_entry.pack(side='left')
+        middleFrame.pack(fill='x',padx=20)
+        #----------------------------------------
+    
     #--↓↓--↓↓--↓↓--↓↓--↓↓--參考內容--↓↓--↓↓--↓↓--↓↓--↓↓--↓↓--↓↓--#
         #新增notebook(分頁)
         notebook = ttk.Notebook(self)
@@ -61,15 +70,6 @@ class Window(tk.Tk):
 #        self.TaipeiArea_Combo.grid(row=1,column=1)  
 #        self.TaipeiArea_Combo.current(0)
     #--↑↑--↑↑--↑↑--↑↑--↑↑--參考內容--↑↑--↑↑--↑↑--↑↑--↑↑--↑↑--↑↑--#
-
-        #----------建立搜尋------------------------
-        middleFrame = ttk.LabelFrame(self,text='')
-        tk.Label(middleFrame,text='站點名稱搜尋:').pack(side='left')
-        search_entry = tk.Entry(middleFrame)
-        search_entry.bind("<KeyRelease>", self.OnEntryClick)
-        search_entry.pack(side='left')
-        middleFrame.pack(fill='x',padx=20)
-        #----------------------------------------
 
         #---------------建立treeView---------------
         bottomFrame = tk.Frame(self)

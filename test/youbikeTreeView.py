@@ -62,7 +62,7 @@ class ShowDetail(Dialog):
         self.sbi = data[6]
         self.bemp = data[7]
         super().__init__(parent,**kwargs)
-        
+
 
     def body(self, master):        
         '''
