@@ -4,6 +4,7 @@ import tkinter.font as tkFont
 from youbikeTreeView import YoubikeTreeView
 from threading import Timer
 import datasource as ds
+from message import MapDialog
 
 class TKLable(tk.Label):
     def __init__(self,parents,**kwargs):
@@ -30,6 +31,25 @@ class Window(tk.Tk):
         updateButton.pack(pady=(0,5))
         topFrame.pack(pady=10)
         #---------------------------------------
+
+        col = 5
+        for i in range(len(ds.AREA)):
+            if  i % col == 0:
+                topFrame = tk.Frame(self, bg="#cccccc", borderwidth=2, relief="raised")
+                topFrame.pack(padx=20, pady=20)
+            areaName = ds.AREA[i]
+            btn1 = tk.Button(topFrame, text=areaName, padx=20, pady=20)
+            btn1.bind('<Button-1>',self.areaClick)
+            btn1.pack(side=tk.LEFT, padx=20, pady=20)
+
+    def areaClick(self,even):
+        areaName = even.widget["text"]
+        areaList = []
+        for site in ds.DATA:
+            if areaName == site['sarea']:
+                areaList.append(site)
+
+        MapDialog(self,title=areaName,info=areaList)
         
         #----------建立搜尋------------------------
         middleFrame = ttk.LabelFrame(self,text='')
@@ -51,28 +71,6 @@ class Window(tk.Tk):
         MapFrame.pack(fill='both', expand=True)
         notebook.add(MapFrame, text='以行政區分類地圖顯示定位')
         
-
-        #bottomFrame.pack(fill='both', expand=True)
-        #notebook.add(bottomFrame, text='各站點清單附帶搜尋功能')
-        #------區域時段搜尋框架--------
-        #放選單的框架
-        #mainFrame = tk.Frame(MapFrame,width=1000,height=200)
-        #mainFrame.pack()
-
-        #建立關鍵字的label
-#        TKLable(mainFrame, text="以下可擇一搜尋，搜尋到的結果雙擊兩下可以到地圖區看到位置",bd=3).grid(row=0,column=0,columnspan=4)
-
-        #建立Combo的Label
-#        TKLable(mainFrame, text="請選擇行政區",bd=3).grid(row=1,column=0)
-        #抓取台北行政區
-#        self.TaipeiArea_dict=ds.Get_TaipeiArea()
-        #台北市行政區下拉選單
-#        self.TaipeiAreaValue = tk.StringVar()
-#        self.TaipeiArea_Combo = ttk.Combobox(mainFrame,values=list(self.TaipeiArea_dict.keys()),justify="center",textvariable=self.TaipeiAreaValue)
-#        self.TaipeiArea_Combo.grid(row=1,column=1)  
-#        self.TaipeiArea_Combo.current(0)
-    #--↑↑--↑↑--↑↑--↑↑--↑↑--參考內容--↑↑--↑↑--↑↑--↑↑--↑↑--↑↑--↑↑--#
-
         #---------------建立treeView---------------
         bottomFrame = tk.Frame(self)
         
@@ -101,16 +99,17 @@ class Window(tk.Tk):
             self.youbikeTreeView.update_content(search_data)
 
 def main():    
-    def update_data(w:Window)->None:
+    def update_data(Window)->None:
         ds.updata_sqlite_data()
         #-----------更新treeView資料---------------
-        lastest_data = ds.lastest_datetime_data()
-        w.youbikeTreeView.update_content(lastest_data)
+        #lastest_data = ds.lastest_datetime_data()
+        #Window.youbikeTreeView.update_content(lastest_data)
 
-        w.after(10*60*10000,update_data,w) #每隔10分鐘持續七天
+        #Window.after(10*60*10000,update_data,w) #每隔10分鐘持續七天
 
     window = Window()
     window.title('台北市youbike2.0')
+    window.iconbitmap(default='test\images\YouBike2.0_white.ico') # 檔名字首要大寫。小寫會出錯。
     #window.geometry('600x300')
     #window.resizable(width=False,height=False)
     update_data(window)
