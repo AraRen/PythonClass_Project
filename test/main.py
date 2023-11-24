@@ -25,8 +25,10 @@ class Window(tk.Tk):
         #---------建立介面------------------------
         #print(ds.lastest_datetime_data())
         topFrame = tk.Frame(self,relief=tk.GROOVE,borderwidth=1)
-        tk.Label(topFrame,text="台北市youbike及時資料",font=("arial", 24), bg="#333333", fg='#ffffff',padx=10,pady=10).pack(padx=10,pady=20)
-        topFrame.pack(pady=20)
+        tk.Label(topFrame,text="台北市youbike及時資料",font=("arial", 24), bg="#333333", fg='#ffffff',padx=10,pady=10).pack(padx=10,pady=10)
+        updateButton = tk.Button(topFrame,text="立即更新",bg="#dbdbdb",fg="#333333",font=('arial',16),command=lambda :ds.download())
+        updateButton.pack(pady=(0,5))
+        topFrame.pack(pady=10)
         #---------------------------------------
         
         #----------建立搜尋------------------------
