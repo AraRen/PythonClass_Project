@@ -46,7 +46,7 @@ class YoubikeTreeView(ttk.Treeview):
         print(selectedItem)
         data_dict = self.item(selectedItem)
         data_list = data_dict['values']
-        title = data_list[0]
+        title = data_list[1]
         detail = ShowDetail(self.parent,data=data_list,title=title)
         
 
@@ -78,33 +78,34 @@ class ShowDetail(Dialog):
         tk.Label(ListFrame,text="總量").grid(column=0, row=5)
         tk.Label(ListFrame,text="可借").grid(column=0, row=6)
         tk.Label(ListFrame,text="可還").grid(column=0, row=7)
+
+        snoVar = tk.StringVar()
+        snoVar.set(self.sno)
+        tk.Entry(ListFrame,textvariable=snoVar,state='disabled').grid(column=1,row=0)
+
         snaVar = tk.StringVar()
-        snaVar.set(self.sno)
-        tk.Entry(ListFrame,textvariable=snaVar,state='disabled').grid(column=1,row=0)
-
-        mdayVar = tk.StringVar()
-        mdayVar.set(self.sna)
-        tk.Entry(ListFrame,textvariable=mdayVar,state='disabled').grid(column=1,row=1)
-
-        arVar = tk.StringVar()
-        arVar.set(self.sarea)
-        tk.Entry(ListFrame,textvariable=arVar,state='disabled').grid(column=1,row=2)
+        snaVar.set(self.sna)
+        tk.Entry(ListFrame,textvariable=snaVar,state='disabled').grid(column=1,row=1)
 
         sareaVar = tk.StringVar()
-        sareaVar.set(self.mday)
-        tk.Entry(ListFrame,textvariable=sareaVar,state='disabled').grid(column=1,row=3)
+        sareaVar.set(self.sarea)
+        tk.Entry(ListFrame,textvariable=sareaVar,state='disabled').grid(column=1,row=2)
+
+        mdayVar = tk.StringVar()
+        mdayVar.set(self.mday)
+        tk.Entry(ListFrame,textvariable=mdayVar,state='disabled').grid(column=1,row=3)
+
+        arVar = tk.StringVar()
+        arVar.set(self.ar)
+        tk.Entry(ListFrame,textvariable=arVar,state='disabled').grid(column=1,row=4)
 
         totVar = tk.StringVar()
-        totVar.set(self.ar)
-        tk.Entry(ListFrame,textvariable=totVar,state='disabled').grid(column=1,row=4)
+        totVar.set(self.tot)
+        tk.Entry(ListFrame,textvariable=totVar,state='disabled').grid(column=1,row=5)
 
         sbiVar = tk.StringVar()
-        sbiVar.set(self.tot)
-        tk.Entry(ListFrame,textvariable=sbiVar,state='disabled').grid(column=1,row=5)
-
-        bempVar = tk.StringVar()
-        bempVar.set(self.sbi)
-        tk.Entry(ListFrame,textvariable=bempVar,state='disabled').grid(column=1,row=6)
+        sbiVar.set(self.sbi)
+        tk.Entry(ListFrame,textvariable=sbiVar,state='disabled').grid(column=1,row=6)
     
         bempVar = tk.StringVar()
         bempVar.set(self.bemp)
