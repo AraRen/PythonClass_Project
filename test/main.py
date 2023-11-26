@@ -47,7 +47,10 @@ class Window(tk.Tk):
         search_entry = tk.Entry(middleFrame)
         search_entry.bind("<KeyRelease>", self.OnEntryClick)
         search_entry.pack(side='left')
-        middleFrame.pack(fill='x',padx=20)
+        # 新增清除按鈕
+        clearButton = tk.Button(middleFrame, text='清除', command=lambda: search_entry.delete(0, 'end'))
+        clearButton.pack(side='left')
+        middleFrame.pack(fill='x', padx=20)
         #---------------建立treeView---------------
         bottomFrame = tk.Frame(self,height=200)
         
