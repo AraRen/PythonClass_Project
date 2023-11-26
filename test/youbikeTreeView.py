@@ -46,7 +46,7 @@ class YoubikeTreeView(ttk.Treeview):
         print(selectedItem)
         data_dict = self.item(selectedItem)
         data_list = data_dict['values']
-        title = data_list[1]
+        title = data_list[0]
         detail = ShowDetail(self.parent,data=data_list,title=title)
         
 

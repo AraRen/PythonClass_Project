@@ -72,7 +72,7 @@ class MapDialog(Dialog):
         self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=19)
         # map_widget.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         self.map_widget.set_position(25.038263362662818, 121.52830359290476)  # 設置初始座標(東門約略在台北市中心)
-        self.map_widget.set_zoom(11)
+        self.map_widget.set_zoom(12)
 
         # Load images for icon
         current_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
@@ -113,7 +113,7 @@ class MapDialog(Dialog):
         # Center the map on the marker's location
         lat, lng = marker.data['lat'], marker.data['lng']
         self.map_widget.set_position(lat, lng)
-        self.map_widget.set_zoom(18)
+        self.map_widget.set_zoom(17)
 
 
     def center_map(self):
