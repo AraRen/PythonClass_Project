@@ -3,8 +3,8 @@ import tkinter as tk
 from tkinter.simpledialog import Dialog
 
 class YoubikeTreeView(ttk.Treeview):
-    def __init__(self,parent,**kwargs):
-        super().__init__(parent,**kwargs)
+    def __init__(self, parent, **kwargs):
+        super().__init__(parent, **kwargs)
         self.parent = parent
         #------設定欄位名稱---------------
         self.heading('sno',text='ID')
@@ -22,14 +22,14 @@ class YoubikeTreeView(ttk.Treeview):
         self.column('sarea',width=50)
         self.column('mday',width=150)
         self.column('ar',width=300)
-        self.column('tot',width=50)
+        self.column('tot',width=70)
         self.column('sbi',width=50)
         self.column('bemp',width=50)
 
         #----------bind button1-------
         self.bind('<ButtonRelease-1>', self.selectedItem)
 
-    def update_content(self,site_datas):
+    def update_content(self,site_datas)->None:
         '''
         更新內容
         '''
@@ -68,58 +68,58 @@ class ShowDetail(Dialog):
         '''
         override body,可以自訂body的外觀內容
         '''
-        mainFrame = tk.Frame(master)
-        mainFrame.pack(padx=100,pady=100)
-        tk.Label(mainFrame,text="ID").grid(column=0, row=0)
-        tk.Label(mainFrame,text="站點名稱").grid(column=0, row=1)
-        tk.Label(mainFrame,text="行政區").grid(column=0, row=2)
-        tk.Label(mainFrame,text="更新時間").grid(column=0, row=3)
-        tk.Label(mainFrame,text="地址").grid(column=0, row=4)
-        tk.Label(mainFrame,text="總量").grid(column=0, row=5)
-        tk.Label(mainFrame,text="可借").grid(column=0, row=6)
-        tk.Label(mainFrame,text="可還").grid(column=0, row=7)
+        ListFrame = tk.Frame(master)
+        ListFrame.pack(padx=100,pady=100)
+        tk.Label(ListFrame,text="ID").grid(column=0, row=0)
+        tk.Label(ListFrame,text="站點名稱").grid(column=0, row=1)
+        tk.Label(ListFrame,text="行政區").grid(column=0, row=2)
+        tk.Label(ListFrame,text="更新時間").grid(column=0, row=3)
+        tk.Label(ListFrame,text="地址").grid(column=0, row=4)
+        tk.Label(ListFrame,text="總量").grid(column=0, row=5)
+        tk.Label(ListFrame,text="可借").grid(column=0, row=6)
+        tk.Label(ListFrame,text="可還").grid(column=0, row=7)
         snaVar = tk.StringVar()
         snaVar.set(self.sno)
-        tk.Entry(mainFrame,textvariable=snaVar,state='disabled').grid(column=1,row=0)
+        tk.Entry(ListFrame,textvariable=snaVar,state='disabled').grid(column=1,row=0)
 
         mdayVar = tk.StringVar()
         mdayVar.set(self.sna)
-        tk.Entry(mainFrame,textvariable=mdayVar,state='disabled').grid(column=1,row=1)
+        tk.Entry(ListFrame,textvariable=mdayVar,state='disabled').grid(column=1,row=1)
 
         arVar = tk.StringVar()
         arVar.set(self.sarea)
-        tk.Entry(mainFrame,textvariable=arVar,state='disabled').grid(column=1,row=2)
+        tk.Entry(ListFrame,textvariable=arVar,state='disabled').grid(column=1,row=2)
 
         sareaVar = tk.StringVar()
         sareaVar.set(self.mday)
-        tk.Entry(mainFrame,textvariable=sareaVar,state='disabled').grid(column=1,row=3)
+        tk.Entry(ListFrame,textvariable=sareaVar,state='disabled').grid(column=1,row=3)
 
         totVar = tk.StringVar()
         totVar.set(self.ar)
-        tk.Entry(mainFrame,textvariable=totVar,state='disabled').grid(column=1,row=4)
+        tk.Entry(ListFrame,textvariable=totVar,state='disabled').grid(column=1,row=4)
 
         sbiVar = tk.StringVar()
         sbiVar.set(self.tot)
-        tk.Entry(mainFrame,textvariable=sbiVar,state='disabled').grid(column=1,row=5)
+        tk.Entry(ListFrame,textvariable=sbiVar,state='disabled').grid(column=1,row=5)
 
         bempVar = tk.StringVar()
         bempVar.set(self.sbi)
-        tk.Entry(mainFrame,textvariable=bempVar,state='disabled').grid(column=1,row=6)
+        tk.Entry(ListFrame,textvariable=bempVar,state='disabled').grid(column=1,row=6)
     
         bempVar = tk.StringVar()
         bempVar.set(self.bemp)
-        tk.Entry(mainFrame,textvariable=bempVar,state='disabled').grid(column=1,row=7)
+        tk.Entry(ListFrame,textvariable=bempVar,state='disabled').grid(column=1,row=7)
 
     def buttonbox(self):
         '''
         override buttonbox,可以自訂body的外觀內容
         '''
-        box = tk.Frame(self)
+        boxFrame = tk.Frame(self)
 
-        w = tk.Button(box, text="確認", width=10, command=self.ok, default=tk.ACTIVE)
+        w = tk.Button(boxFrame, text="確認", width=10, command=self.ok, default=tk.ACTIVE)
         w.pack(padx=5, pady=(5,20))      
 
         self.bind("<Return>", self.ok)
         self.bind("<Escape>", self.cancel)
 
-        box.pack()
+        boxFrame.pack()

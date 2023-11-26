@@ -51,7 +51,7 @@ class MapDialog(Dialog):
         self.marker_path = None
         self.search_marker = None
         self.search_in_progress = False
-        searchFrame = tk.Frame(master,width=800,height=500)
+        searchFrame = tk.Frame(master,width=800,height=200)
         searchFrame.pack()
 
         self.search_bar = tk.Entry(searchFrame, width=50)

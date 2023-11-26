@@ -117,7 +117,7 @@ class MapDialog(Dialog):
         # Center the map on the marker's location
         lat, lng = marker.data['lat'], marker.data['lng']
         self.map_widget.set_position(lat, lng)
-        self.map_widget.set_zoom(18)
+        self.map_widget.set_zoom(17)
 
 
     def center_map(self):

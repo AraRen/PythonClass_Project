@@ -14,10 +14,10 @@ class Window(tk.Tk):
         col = 5
         for i in range(len(ds.AREA)):
             if  i % col == 0:
-                topFrame = tk.Frame(self, bg="#cccccc", borderwidth=2, relief="raised")
-                topFrame.pack(padx=20, pady=20)
+                middelFrame = tk.Frame(self, bg="#cccccc", borderwidth=2, relief="raised")
+                middelFrame.pack(padx=20, pady=20)
             areaName = ds.AREA[i]
-            btn1 = tk.Button(topFrame, text=areaName, padx=20, pady=20)
+            btn1 = tk.Button(middelFrame, text=areaName, padx=20, pady=20)
             btn1.bind('<Button-1>',self.areaClick)
             btn1.pack(side=tk.LEFT, padx=20, pady=20)
 

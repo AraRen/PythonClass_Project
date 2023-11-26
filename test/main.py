@@ -42,15 +42,6 @@ class Window(tk.Tk):
             btn1.bind('<Button-1>',self.areaClick)
             btn1.pack(side=tk.LEFT, padx=20, pady=20)
 
-    def areaClick(self,even):
-        areaName = even.widget["text"]
-        areaList = []
-        for site in ds.DATA:
-            if areaName == site['sarea']:
-                areaList.append(site)
-
-        MapDialog(self,title=areaName,info=areaList)
-        
         #----------建立搜尋------------------------
         middleFrame = ttk.LabelFrame(self,text='')
         tk.Label(middleFrame,text='站點名稱搜尋:').pack(side='left')
@@ -59,18 +50,11 @@ class Window(tk.Tk):
         search_entry.pack(side='left')
         middleFrame.pack(fill='x',padx=20)
         #----------------------------------------
-    
-    #--↓↓--↓↓--↓↓--↓↓--↓↓--參考內容--↓↓--↓↓--↓↓--↓↓--↓↓--↓↓--↓↓--#
         #新增notebook(分頁)
         notebook = ttk.Notebook(self)
         notebook.pack(pady=0, expand=True)
-
+    #--↓↓--↓↓--↓↓--↓↓--↓↓--參考內容--↓↓--↓↓--↓↓--↓↓--↓↓--↓↓--↓↓--#
         #新增frames
-        #地圖的待新增內容--
-        MapFrame = ttk.Frame(notebook, width=800, height=50)
-        MapFrame.pack(fill='both', expand=True)
-        notebook.add(MapFrame, text='以行政區分類地圖顯示定位')
-        
         #---------------建立treeView---------------
         bottomFrame = tk.Frame(self)
         
@@ -86,7 +70,12 @@ class Window(tk.Tk):
         #將frames放到notebook
         bottomFrame.pack(pady=(0,30),fill='both', expand=True)
         notebook.add(bottomFrame, text='各站點清單附帶搜尋功能')
-    
+
+        #地圖的待新增內容--
+        MapFrame = ttk.Frame(notebook, width=800, height=50)
+        MapFrame.pack(fill='both', expand=True)
+        notebook.add(MapFrame, text='以行政區分類地圖顯示定位')
+            
     def OnEntryClick(self,event):
         searchEntry = event.widget
         #使用者輸入的文字
@@ -98,14 +87,26 @@ class Window(tk.Tk):
             search_data = ds.search_sitename(word=input_word)
             self.youbikeTreeView.update_content(search_data)
 
+    def areaClick(self,even):
+        areaName = even.widget["text"]
+        areaList = []
+        for site in ds.DATA:
+            if areaName == site['sarea']:
+                areaList.append(site)
+
+        self.map_widget = MapDialog(self,title=areaName,info=areaList)
+
+        
+        
+
 def main():    
     def update_data(Window)->None:
         ds.updata_sqlite_data()
         #-----------更新treeView資料---------------
-        #lastest_data = ds.lastest_datetime_data()
-        #Window.youbikeTreeView.update_content(lastest_data)
+        lastest_data = ds.lastest_datetime_data()
+        Window.youbikeTreeView.update_content(lastest_data)
 
-        #Window.after(10*60*10000,update_data,w) #每隔10分鐘持續七天
+        Window.after(10*60*10000,update_data,window) #每隔10分鐘持續七天
 
     window = Window()
     window.title('台北市youbike2.0')
