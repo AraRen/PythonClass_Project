@@ -66,13 +66,16 @@ class MapDialog(Dialog):
 
 
         self.map_widget = tkintermapview.TkinterMapView(master,width=800, height=600, corner_radius=0)
+        centerLat,centerLong = self.getCenter() # 各行政區中央位置的經緯度
         self.map_widget.pack(fill="both", expand=True)
         # self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=20)
         # 當 zoom >= 20，Google Map 的 YouBike站點 會顯示站點名稱，會跟我們的 marker text 重疊顯示。
         self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=19)
         # map_widget.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-        self.map_widget.set_position(25.038263362662818, 121.52830359290476)  # 設置初始座標(東門約略在台北市中心)
-        self.map_widget.set_zoom(12)
+        self.map_widget.set_position(centerLat, centerLong) # 將各行政區中央位置的經緯度，設定為地圖中心
+        # self.map_widget.set_position(25.038263362662818, 121.52830359290476)  # 設置初始座標(東門約略在台北市中心)
+
+        self.map_widget.set_zoom(14)
 
         # Load images for icon
         current_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
@@ -136,7 +139,7 @@ class MapDialog(Dialog):
         #自訂按鈕區
         #'relief='邊框樣式，可以設定 flat[扁平]、sunken[凹陷]、raised[浮凸]、groove[邊框]、ridge、solid，預設 flat。 https://steam.oxxostudio.tw/category/python/tkinter/button.html#a3
         bottomFrame = tk.Frame(self)
-        tk.Button(bottomFrame,text="關閉"+self.title()+"地圖",command=self.ok,padx=10,pady=10,activeforeground='#FFF',bg='#FFF',relief='raised').pack(padx=10,pady=20)
+        tk.Button(bottomFrame,text="關閉"+self.title()+"地圖",command=self.ok,padx=10,pady=10,activeforeground='#FFF',bg='#FFF',relief='raised').pack(padx=10,pady=(5,10))
         bottomFrame.pack()
 
 
