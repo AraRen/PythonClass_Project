@@ -92,12 +92,12 @@ class MapDialog(Dialog):
                 site['lng'],
                 text_color=textcolor,
                 font=('arial bold', 10),
-                text=f"{site['sna']}\n\t可借:{site['sbi']}\n\t可還:{site['bemp']}",
                 icon=Bike_image,
                 command=self.click1
             )
             marker.data = site
 
+#                text=f"{site['sna']}",
 
     def click1(self,marker):
         '''
@@ -108,10 +108,8 @@ class MapDialog(Dialog):
         '''
         Update marker text and color, and center the map on the marker's location.
         '''
-        #marker.text = marker.data['sna']
-        #marker.marker_color_outside = 'black'
-
         # Center the map on the marker's location
+        marker.text = str(f"{marker.data['sna']}\n\t可借:{marker.data['sbi']}\n\t可還:{marker.data['bemp']}")
         lat, lng = marker.data['lat'], marker.data['lng']
         self.map_widget.set_position(lat, lng)
         self.map_widget.set_zoom(17)
