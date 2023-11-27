@@ -18,7 +18,7 @@ class YoubikeTreeView(ttk.Treeview):
 
         #----------設定欄位寬度------------
         self.column('sno',width=100)
-        self.column('sna',width=200)
+        self.column('sna',width=260)
         self.column('sarea',width=50)
         self.column('mday',width=150)
         self.column('ar',width=300)
@@ -69,47 +69,47 @@ class ShowDetail(Dialog):
         override body,可以自訂body的外觀內容
         '''
         ListFrame = tk.Frame(master)
-        ListFrame.pack(padx=100,pady=100)
-        tk.Label(ListFrame,text="ID").grid(column=0, row=0)
-        tk.Label(ListFrame,text="站點名稱").grid(column=0, row=1)
-        tk.Label(ListFrame,text="行政區").grid(column=0, row=2)
-        tk.Label(ListFrame,text="更新時間").grid(column=0, row=3)
-        tk.Label(ListFrame,text="地址").grid(column=0, row=4)
-        tk.Label(ListFrame,text="總量").grid(column=0, row=5)
-        tk.Label(ListFrame,text="可借").grid(column=0, row=6)
-        tk.Label(ListFrame,text="可還").grid(column=0, row=7)
+        ListFrame.pack(padx=200,pady=100)
+        tk.Label(ListFrame,text="ID").grid(column=0, row=0,sticky='W')
+        tk.Label(ListFrame,text="站點名稱").grid(column=0, row=1,sticky='W')
+        tk.Label(ListFrame,text="行政區").grid(column=0, row=2,sticky='W')
+        tk.Label(ListFrame,text="更新時間").grid(column=0, row=3,sticky='W')
+        tk.Label(ListFrame,text="地址").grid(column=0, row=4,sticky='W')
+        tk.Label(ListFrame,text="總量").grid(column=0, row=5,sticky='W')
+        tk.Label(ListFrame,text="可借").grid(column=0, row=6,sticky='W')
+        tk.Label(ListFrame,text="可還").grid(column=0, row=7,sticky='W')
 
         snoVar = tk.StringVar()
         snoVar.set(self.sno)
-        tk.Entry(ListFrame,textvariable=snoVar,state='disabled').grid(column=1,row=0)
+        tk.Entry(ListFrame,textvariable=snoVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=0,sticky='E')
 
         snaVar = tk.StringVar()
         snaVar.set(self.sna)
-        tk.Entry(ListFrame,textvariable=snaVar,state='disabled').grid(column=1,row=1)
+        tk.Entry(ListFrame,textvariable=snaVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=1,sticky='E')
 
         sareaVar = tk.StringVar()
         sareaVar.set(self.sarea)
-        tk.Entry(ListFrame,textvariable=sareaVar,state='disabled').grid(column=1,row=2)
+        tk.Entry(ListFrame,textvariable=sareaVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=2,sticky='E')
 
         mdayVar = tk.StringVar()
         mdayVar.set(self.mday)
-        tk.Entry(ListFrame,textvariable=mdayVar,state='disabled').grid(column=1,row=3)
+        tk.Entry(ListFrame,textvariable=mdayVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=3,sticky='E')
 
         arVar = tk.StringVar()
         arVar.set(self.ar)
-        tk.Entry(ListFrame,textvariable=arVar,state='disabled').grid(column=1,row=4)
+        tk.Entry(ListFrame,textvariable=arVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=4,sticky='E')
 
         totVar = tk.StringVar()
         totVar.set(self.tot)
-        tk.Entry(ListFrame,textvariable=totVar,state='disabled').grid(column=1,row=5)
+        tk.Entry(ListFrame,textvariable=totVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=5,sticky='E')
 
         sbiVar = tk.StringVar()
         sbiVar.set(self.sbi)
-        tk.Entry(ListFrame,textvariable=sbiVar,state='disabled').grid(column=1,row=6)
+        tk.Entry(ListFrame,textvariable=sbiVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=6,sticky='E')
     
         bempVar = tk.StringVar()
         bempVar.set(self.bemp)
-        tk.Entry(ListFrame,textvariable=bempVar,state='disabled').grid(column=1,row=7)
+        tk.Entry(ListFrame,textvariable=bempVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=7,sticky='E')
 
     def buttonbox(self):
         '''
