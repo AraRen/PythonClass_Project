@@ -26,8 +26,9 @@ class Window(tk.Tk):
         #---------建立介面------------------------
         #print(ds.lastest_datetime_data())
         titleFrame = tk.Frame(self,relief=tk.GROOVE,borderwidth=1)
-        tk.Label(titleFrame,text="台北市youbike及時資料",font=("arial", 36), bg="#333333", fg='#ffffff',padx=10,pady=10).pack(padx=10,pady=10)
-        updateButton = tk.Button(titleFrame,text="立即更新",bg="#dbdbdb",fg="#333333",font=('arial',16),command=lambda :ds.download())
+        tk.Label(titleFrame,text="台北市 YouBike 2.0 站點即時資訊",font=("arial", 36), bg="#333333", fg='#ffffff',padx=10,pady=10).pack(padx=10,pady=10)
+        updateButton = tk.Button(titleFrame,text="立即更新",bg="#dbdbdb",fg="#333333",font=('arial',16),command=lambda:ds.download())
+        #updateButton.bind(Window.buttonupdata())
         updateButton.pack(pady=(0,5))
         titleFrame.pack(pady=10)
         #---------------------------------------
@@ -84,6 +85,9 @@ class Window(tk.Tk):
 
         self.map_widget = MapDialog(self,title=areaName,info=areaList)
 
+    #def buttonupdata():
+        #ds.download()
+
 def main():    
     def update_data(Window)->None:
         ds.updata_sqlite_data()
@@ -91,11 +95,11 @@ def main():
         lastest_data = ds.lastest_datetime_data()
         Window.youbikeTreeView.update_content(lastest_data)
 
-        Window.after(10*60*10000,update_data,window) #每隔10分鐘持續七天
+        #Window.after(10*60*10000,update_data,window) #每隔10分鐘持續七天
 
     window = Window()
-    window.title('台北市youbike2.0')
-    window.iconbitmap(default='test\images\YouBike2.0_white.ico') # 檔名字首要大寫。小寫會出錯。
+    window.title('台北市 YouBike 2.0 站點即時資訊')
+    window.iconbitmap(default='test\images\Bike_blue41x35.ico') # 檔名字首要大寫。小寫會出錯。
     #window.geometry('1000x800')
     #window.resizable(width=False,height=False)
     update_data(window)
