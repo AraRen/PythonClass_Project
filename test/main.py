@@ -54,9 +54,9 @@ class Window(tk.Tk):
         # 清除按鈕
         clearButton = tk.Button(middleFrame, text='清除', command=lambda: search_entry.delete(0, 'end'))
         clearButton.pack(side='left')
-        middleFrame.pack(fill='x', padx=20)
+        middleFrame.pack(fill='x', padx=10)
         #---------------建立treeView---------------
-        bottomFrame = tk.Frame(self,height=200)
+        bottomFrame = tk.Frame(self)
         
         # 有id欄位
         # self.youbikeTreeView = YoubikeTreeView(bottomFrame,show="headings", columns=('sno','sna','sarea','mday','ar','tot','sbi','bemp'), height=20)
@@ -64,12 +64,12 @@ class Window(tk.Tk):
         # 無id欄位
         self.youbikeTreeView = YoubikeTreeView(bottomFrame,show="headings",
                                                columns=('sna','sarea','mday','ar','tot','sbi','bemp'),
-                                               height=20)
+                                               height=40)
         self.youbikeTreeView.pack(side='left')
         vsb = ttk.Scrollbar(bottomFrame, orient="vertical", command=self.youbikeTreeView.yview)
         vsb.pack(side='left',fill='y')
         self.youbikeTreeView.configure(yscrollcommand=vsb.set)
-        bottomFrame.pack(pady=(5,10),fill='both', expand=True)
+        bottomFrame.pack(padx=10,pady=(5,10),fill='both', expand=True)
         #-------------------------------------------
             
     def OnEntryClick(self,event):
@@ -107,7 +107,7 @@ def main():
     window = Window()
     window.title('台北市 YouBike 2.0 站點即時資訊')
     window.iconbitmap(default='test\images\Bike_blue41x35.ico') # 檔名字首要大寫。小寫會出錯。
-    #window.geometry('1000x800')
+    window.geometry('1015x800')
     window.resizable(width=False,height=False)
     update_data(window)
     window.configure(background='#ffffff')

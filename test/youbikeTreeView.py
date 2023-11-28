@@ -18,8 +18,8 @@ class YoubikeTreeView(ttk.Treeview):
 
         #----------設定欄位寬度------------
         # self.column('sno',width=100)
-        self.column('sna',width=260)
-        self.column('sarea',width=50)
+        self.column('sna',width=265)
+        self.column('sarea',width=90)
         self.column('mday',width=150)
         self.column('ar',width=300)
         self.column('tot',width=70)
@@ -77,7 +77,7 @@ class ShowDetail(Dialog):
         override body,可以自訂body的外觀內容
         '''
         ListFrame = tk.Frame(master)
-        ListFrame.pack(padx=200,pady=100)
+        ListFrame.pack(padx=5,pady=5)
         # tk.Label(ListFrame,text="ID").grid(column=0, row=0,sticky='W')
         # tk.Label(ListFrame,text="站點名稱").grid(column=0, row=1,sticky='W')
         # tk.Label(ListFrame,text="行政區").grid(column=0, row=2,sticky='W')
@@ -101,37 +101,39 @@ class ShowDetail(Dialog):
         snaVar = tk.StringVar()
         snaVar.set(self.sna)
         # tk.Entry(ListFrame,textvariable=snaVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=1,sticky='E')
-        tk.Entry(ListFrame,textvariable=snaVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=0,sticky='E')
+        tk.Entry(ListFrame,textvariable=snaVar,state='disabled',width=42,justify=tk.LEFT).grid(column=1,row=0,sticky='E')
 
         sareaVar = tk.StringVar()
         sareaVar.set(self.sarea)
         # tk.Entry(ListFrame,textvariable=sareaVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=2,sticky='E')
-        tk.Entry(ListFrame,textvariable=sareaVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=1,sticky='E')
+        tk.Entry(ListFrame,textvariable=sareaVar,state='disabled',width=42,justify=tk.LEFT).grid(column=1,row=1,sticky='E')
 
         mdayVar = tk.StringVar()
         mdayVar.set(self.mday)
         # tk.Entry(ListFrame,textvariable=mdayVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=3,sticky='E')
-        tk.Entry(ListFrame,textvariable=mdayVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=2,sticky='E')
+        tk.Entry(ListFrame,textvariable=mdayVar,state='disabled',width=42,justify=tk.LEFT).grid(column=1,row=2,sticky='E')
 
         arVar = tk.StringVar()
         arVar.set(self.ar)
         # tk.Entry(ListFrame,textvariable=arVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=4,sticky='E')
-        tk.Entry(ListFrame,textvariable=arVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=3,sticky='E')
+        tk.Entry(ListFrame,textvariable=arVar,state='disabled',width=42,justify=tk.LEFT).grid(column=1,row=3,sticky='E')
 
         totVar = tk.StringVar()
         totVar.set(self.tot)
         # tk.Entry(ListFrame,textvariable=totVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=5,sticky='E')
-        tk.Entry(ListFrame,textvariable=totVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=4,sticky='E')
+        tk.Entry(ListFrame,textvariable=totVar,state='disabled',width=42,justify=tk.LEFT).grid(column=1,row=4,sticky='E')
 
         sbiVar = tk.StringVar()
         sbiVar.set(self.sbi)
         # tk.Entry(ListFrame,textvariable=sbiVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=6,sticky='E')
-        tk.Entry(ListFrame,textvariable=sbiVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=5,sticky='E')
+        tk.Entry(ListFrame,textvariable=sbiVar,state='disabled',width=42,justify=tk.LEFT).grid(column=1,row=5,sticky='E')
     
         bempVar = tk.StringVar()
         bempVar.set(self.bemp)
         # tk.Entry(ListFrame,textvariable=bempVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=7,sticky='E')
-        tk.Entry(ListFrame,textvariable=bempVar,state='disabled',width=42,justify=tk.RIGHT).grid(column=1,row=6,sticky='E')
+        tk.Entry(ListFrame,textvariable=bempVar,state='disabled',width=42,justify=tk.LEFT).grid(column=1,row=6,sticky='E')
+
+        self.resizable(width=False,height=False)
 
     def buttonbox(self):
         '''
@@ -140,7 +142,7 @@ class ShowDetail(Dialog):
         boxFrame = tk.Frame(self)
 
         w = tk.Button(boxFrame, text="確認", width=10, command=self.ok, default=tk.ACTIVE)
-        w.pack(padx=5, pady=(5,20))      
+        w.pack(padx=5, pady=(5,15))      
 
         self.bind("<Return>", self.ok)
         self.bind("<Escape>", self.cancel)
