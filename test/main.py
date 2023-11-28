@@ -27,10 +27,13 @@ class Window(tk.Tk):
         #print(ds.lastest_datetime_data())
         titleFrame = tk.Frame(self,relief=tk.GROOVE,borderwidth=1)
         tk.Label(titleFrame,text="台北市 YouBike 2.0 站點即時資訊",font=("arial", 36), bg="#333333", fg='#ffffff',padx=10,pady=10).pack(padx=10,pady=10)
-        updateButton = tk.Button(titleFrame,text="立即更新",bg="#dbdbdb",fg="#333333",font=('arial',16),command=lambda:ds.download())
-        #updateButton.bind(Window.buttonupdata())
-        updateButton.pack(pady=(0,5))
         titleFrame.pack(pady=10)
+        
+        # "立即更新"按鈕未完成，錄影時先不顯示。
+        # updateButton = tk.Button(titleFrame,text="立即更新",bg="#dbdbdb",fg="#333333",font=('arial',16),command=lambda:ds.download())
+        # updateButton.bind(Window.buttonupdata())
+        # updateButton.pack(pady=(0,5))
+       
         #---------------------------------------
 
         col = 13
@@ -48,15 +51,19 @@ class Window(tk.Tk):
         search_entry = tk.Entry(middleFrame)
         search_entry.bind("<KeyRelease>", self.OnEntryClick)
         search_entry.pack(side='left')
-        # 新增清除按鈕
+        # 清除按鈕
         clearButton = tk.Button(middleFrame, text='清除', command=lambda: search_entry.delete(0, 'end'))
         clearButton.pack(side='left')
         middleFrame.pack(fill='x', padx=20)
         #---------------建立treeView---------------
         bottomFrame = tk.Frame(self,height=200)
         
+        # 有id欄位
+        # self.youbikeTreeView = YoubikeTreeView(bottomFrame,show="headings", columns=('sno','sna','sarea','mday','ar','tot','sbi','bemp'), height=20)
+
+        # 無id欄位
         self.youbikeTreeView = YoubikeTreeView(bottomFrame,show="headings",
-                                               columns=('sno','sna','sarea','mday','ar','tot','sbi','bemp'),
+                                               columns=('sna','sarea','mday','ar','tot','sbi','bemp'),
                                                height=20)
         self.youbikeTreeView.pack(side='left')
         vsb = ttk.Scrollbar(bottomFrame, orient="vertical", command=self.youbikeTreeView.yview)
@@ -90,7 +97,7 @@ class Window(tk.Tk):
 
 def main():    
     def update_data(Window)->None:
-        ds.updata_sqlite_data()
+        #ds.updata_sqlite_data()
         #-----------更新treeView資料---------------
         lastest_data = ds.lastest_datetime_data()
         Window.youbikeTreeView.update_content(lastest_data)
@@ -101,7 +108,7 @@ def main():
     window.title('台北市 YouBike 2.0 站點即時資訊')
     window.iconbitmap(default='test\images\Bike_blue41x35.ico') # 檔名字首要大寫。小寫會出錯。
     #window.geometry('1000x800')
-    #window.resizable(width=False,height=False)
+    window.resizable(width=False,height=False)
     update_data(window)
     window.configure(background='#ffffff')
     window.mainloop()
