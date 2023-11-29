@@ -1,6 +1,5 @@
 import requests
 import sqlite3
-import xml.etree.ElementTree as ET  # for parsing XML
 
 __all__ = ['updata_sqlite_data']
 

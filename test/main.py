@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk,messagebox
 import tkinter.font as tkFont
 from youbikeTreeView import YoubikeTreeView
-from threading import Timer
+# from threading import Timer
 import datasource as ds
 from message import MapDialog
 
