@@ -1,6 +1,5 @@
 import requests
 import sqlite3
-import xml.etree.ElementTree as ET  # for parsing XML
 
 __all__ = ['updata_sqlite_data']
 
@@ -75,7 +74,8 @@ def lastest_datetime_data()->list[tuple]:
     conn = sqlite3.connect("台北市youbike.db")
     cursor = conn.cursor()
     sql = '''
-    SELECT *
+    SELECT 站點名稱,行政區,更新時間,地址,總車輛數,可借,可還
+    -- SELECT *
     FROM 台北市youbike
     WHERE (更新時間,站點名稱) IN (
 	    SELECT MAX(更新時間),站點名稱
@@ -94,7 +94,9 @@ def search_sitename(word:str) -> list[tuple]:
     conn = sqlite3.connect("台北市youbike.db")
     cursor = conn.cursor()
     sql = '''
-        SELECT id,站點名稱,行政區,MAX(更新時間) AS 更新時間,地址,總車輛數,可借,可還
+        -- SELECT id,站點名稱,行政區,MAX(更新時間) AS 更新時間,地址,總車輛數,可借,可還
+        -- 改成無id欄位
+        SELECT 站點名稱,行政區,MAX(更新時間) AS 更新時間,地址,總車輛數,可借,可還
         FROM 台北市youbike
         GROUP BY 站點名稱
         HAVING 站點名稱 like ?
