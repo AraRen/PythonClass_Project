@@ -43,8 +43,16 @@ class MapDialog(Dialog):
             self.search_in_progress = False
 
     def MapClear(self):
+        """Clear the search bar and map."""
         self.search_bar.delete(0, last=tk.END)
         self.map_widget.delete(self.search_marker)
+
+        # Get center coordinates of the markers
+        center_lat, center_lng = self.getCenter()
+
+        # Set map center to the calculated center
+        self.map_widget.set_position(center_lat, center_lng)
+        self.map_widget.set_zoom(14)
 
     def body(self, master):
         self.marker_list = []
@@ -61,7 +69,7 @@ class MapDialog(Dialog):
         self.search_bar_button = tk.Button(master=searchFrame, width=8, text="搜尋", command=self.MapSearch)
         self.search_bar_button.grid(row=0, column=1, pady=10, padx=10)
 
-        self.search_bar_clear = tk.Button(master=searchFrame, width=8, text="清除", command=self.MapClear)
+        self.search_bar_clear = tk.Button(master=searchFrame, width=8, text="清除/重置", command=self.MapClear)
         self.search_bar_clear.grid(row=0, column=2, pady=10, padx=10)
 
 
