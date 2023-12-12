@@ -1,9 +1,10 @@
 import requests
 import sqlite3
-import  json, ssl, urllib.request
-import xml.etree.ElementTree as ET  # for parsing XML
 
 __all__ = ['updata_sqlite_data']
+
+AREA = ["文山區","內湖區","南港區","萬華區","大安區","中正區","松山區","信義區","北投區","大同區","士林區","中山區","臺大公館校區"]
+DATA = None
 
 def __download_youbike_data()->list[dict]:
     '''
@@ -15,6 +16,16 @@ def __download_youbike_data()->list[dict]:
     response.raise_for_status()
     print("數據更新成功")
     return response.json()
+
+def download():
+    global DATA
+    url = "https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json"
+    response = requests.get(url)
+    if response.status_code == 200:
+        DATA = response.json()
+
+#執行一次
+download()
 
 def __create_table(conn:sqlite3.Connection):    
     cursor = conn.cursor()
@@ -63,7 +74,8 @@ def lastest_datetime_data()->list[tuple]:
     conn = sqlite3.connect("台北市youbike.db")
     cursor = conn.cursor()
     sql = '''
-    SELECT *
+    SELECT 站點名稱,行政區,更新時間,地址,總車輛數,可借,可還
+    -- SELECT *
     FROM 台北市youbike
     WHERE (更新時間,站點名稱) IN (
 	    SELECT MAX(更新時間),站點名稱
@@ -82,7 +94,9 @@ def search_sitename(word:str) -> list[tuple]:
     conn = sqlite3.connect("台北市youbike.db")
     cursor = conn.cursor()
     sql = '''
-        SELECT 站點名稱,MAX(更新時間) AS 更新時間,行政區,地址,總車輛數,可借,可還
+        -- SELECT id,站點名稱,行政區,MAX(更新時間) AS 更新時間,地址,總車輛數,可借,可還
+        -- 改成無id欄位
+        SELECT 站點名稱,行政區,MAX(更新時間) AS 更新時間,地址,總車輛數,可借,可還
         FROM 台北市youbike
         GROUP BY 站點名稱
         HAVING 站點名稱 like ?
@@ -92,33 +106,3 @@ def search_sitename(word:str) -> list[tuple]:
     cursor.close()
     conn.close()
     return rows
-
-#抓台北郵遞區域
-#def Get_TaipeiArea():
-    #寫死
-    TaipeiArea = {"全區":"A00",
-                  "松山區":"A01",
-                   "大安區":"A02",
-                   "中正區":"A03",
-                   "萬華區":"A05",
-                   "大同區":"A09",
-                   "中山區":"A10",
-                   "文山區":"A11",
-                   "南港區":"A13",
-                   "內湖區":"A14",
-                   "士林區":"A15",
-                   "北投區":"A16",
-                   "信義區":"A17"
-                   }
-    return TaipeiArea
-
-#def Get_AreaVillage(towncode01):
-    AreaVillage_list=['全部']  #list
-    if towncode01!='A00':
-        url=f"https://api.nlsc.gov.tw/other/ListVillage/A/{towncode01}"
-        response=requests.get(url=url)
-        xml = ET.fromstring(response.content)  # parse XML
-
-    
-        for i in xml.iter('villageName'):  
-            AreaVillage_list.append(i.text)

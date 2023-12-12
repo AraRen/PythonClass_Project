@@ -5,10 +5,6 @@ from tkinter import ttk,messagebox
 import os
 from PIL import Image, ImageTk
 
-class CustomFrame(tk.Frame):
-    def __init__(self,parent,data=None,map_widget=None,**kwargs):#這裡的self是定義
-        super().__init__(parent,**kwargs)
-
 class MapDialog(Dialog):
     def __init__(self, parent, title = None,info=None):
         self.info = info
@@ -47,15 +43,23 @@ class MapDialog(Dialog):
             self.search_in_progress = False
 
     def MapClear(self):
+        """Clear the search bar and map."""
         self.search_bar.delete(0, last=tk.END)
         self.map_widget.delete(self.search_marker)
+
+        # Get center coordinates of the markers
+        center_lat, center_lng = self.getCenter()
+
+        # Set map center to the calculated center
+        self.map_widget.set_position(center_lat, center_lng)
+        self.map_widget.set_zoom(14)
 
     def body(self, master):
         self.marker_list = []
         self.marker_path = None
         self.search_marker = None
         self.search_in_progress = False
-        searchFrame = tk.Frame(master,width=800,height=500)
+        searchFrame = tk.Frame(master,width=800,height=200)
         searchFrame.pack()
 
         self.search_bar = tk.Entry(searchFrame, width=50)
@@ -65,42 +69,43 @@ class MapDialog(Dialog):
         self.search_bar_button = tk.Button(master=searchFrame, width=8, text="搜尋", command=self.MapSearch)
         self.search_bar_button.grid(row=0, column=1, pady=10, padx=10)
 
-        self.search_bar_clear = tk.Button(master=searchFrame, width=8, text="清除", command=self.MapClear)
+        self.search_bar_clear = tk.Button(master=searchFrame, width=8, text="清除/重置", command=self.MapClear)
         self.search_bar_clear.grid(row=0, column=2, pady=10, padx=10)
 
 
         self.map_widget = tkintermapview.TkinterMapView(master,width=800, height=600, corner_radius=0)
+        centerLat,centerLong = self.getCenter() # 各行政區中央位置的經緯度
         self.map_widget.pack(fill="both", expand=True)
         # self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=20)
         # 當 zoom >= 20，Google Map 的 YouBike站點 會顯示站點名稱，會跟我們的 marker text 重疊顯示。
         self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=19)
         # map_widget.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-        self.map_widget.set_position(25.038263362662818, 121.52830359290476)  # 設置初始座標(東門約略在台北市中心)
-        self.map_widget.set_zoom(11)
+        self.map_widget.set_position(centerLat, centerLong) # 將各行政區中央位置的經緯度，設定為地圖中心
+        # self.map_widget.set_position(25.038263362662818, 121.52830359290476)  # 設置初始座標(東門約略在台北市中心)
+
+        self.map_widget.set_zoom(14)
 
         # Load images for icon
         current_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-        Bike_image = ImageTk.PhotoImage(Image.open(os.path.join(current_path, "images", "bike_blue_inMkerBrown.png")).resize((35, 35)))
+        Bike_image_B = ImageTk.PhotoImage(Image.open(os.path.join(current_path, "images", "Bike_Blue.png")).resize((35, 35)))
+        Bike_image_R = ImageTk.PhotoImage(Image.open(os.path.join(current_path, "images", "Bike_Red.png")).resize((35, 35)))
 
         #建立marker
         for site in self.info:
-            """
-            marker = self.map_widget.set_marker(site['lat'],site['lng'],marker_color_outside='white',font=('arial',10),
-                                                text=f"{site['sna']}\n可借:{site['sbi']}\n可還:{site['bemp']}",
-                                                icon=Bike_image,command=self.click1)
-            """
-            if site['sbi'] == 0:
-                textcolor = '#FF5151'
-            else:
-                textcolor = '#0066CC'
+            textcolor = '#FF5151' if site['sbi'] == 0 else '#0066CC'
+            Bike_image = Bike_image_R if site['sbi'] == 0 else Bike_image_B
 
-            marker = self.map_widget.set_marker(site['lat'], site['lng'],
-                                                text_color=textcolor,
-                                                font=('arial bold', 10),
-                                                text=f"{site['sna']}\n\t可借:{site['sbi']}\n\t可還:{site['bemp']}",
-                                                icon=Bike_image, command=self.click1)
+            marker = self.map_widget.set_marker(
+                site['lat'],
+                site['lng'],
+                text_color=textcolor,
+                font=('arial bold', 10),
+                icon=Bike_image,
+                command=self.click1
+            )
             marker.data = site
 
+#                text=f"{site['sna']}",
 
     def click1(self,marker):
         '''
@@ -111,10 +116,8 @@ class MapDialog(Dialog):
         '''
         Update marker text and color, and center the map on the marker's location.
         '''
-        #marker.text = marker.data['sna']
-        #marker.marker_color_outside = 'black'
-
         # Center the map on the marker's location
+        marker.text = str(f"{marker.data['sna']}\n\t可借:{marker.data['sbi']}\n\t可還:{marker.data['bemp']}")
         lat, lng = marker.data['lat'], marker.data['lng']
         self.map_widget.set_position(lat, lng)
         self.map_widget.set_zoom(17)
@@ -140,7 +143,7 @@ class MapDialog(Dialog):
         #自訂按鈕區
         #'relief='邊框樣式，可以設定 flat[扁平]、sunken[凹陷]、raised[浮凸]、groove[邊框]、ridge、solid，預設 flat。 https://steam.oxxostudio.tw/category/python/tkinter/button.html#a3
         bottomFrame = tk.Frame(self)
-        tk.Button(bottomFrame,text="關閉"+self.title()+"地圖",command=self.ok,padx=10,pady=10,activeforeground='#FFF',bg='#FFF',relief='raised').pack(padx=10,pady=20)
+        tk.Button(bottomFrame,text="關閉"+self.title()+"地圖",command=self.ok,padx=10,pady=10,activeforeground='#FFF',bg='#FFF',relief='raised').pack(padx=10,pady=(5,10))
         bottomFrame.pack()
 
 
