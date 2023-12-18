@@ -106,7 +106,7 @@ def main():
 
     window = Window()
     window.title('台北市 YouBike 2.0 站點即時資訊')
-    window.iconbitmap(default='test\images\Bike_blue41x35.ico') 
+    window.iconbitmap(default='Project\images\Bike_blue41x35.ico') 
     # 檔名字首要大寫。小寫會出錯。
     window.geometry('1015x800')
     window.resizable(width=False,height=False)
