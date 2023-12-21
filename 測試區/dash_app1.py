@@ -18,6 +18,10 @@ dash1.layout = html.Div([
     Input("graph", "id")
 )
 def update_line_chart(station):
-    df = pd.read_csv('./dash_file/Youbike1221_2.csv')
-    fig = px.line(df, x="status", y="number", color='station')
+    df = pd.read_csv('./dash_file/Youbike1221_4.csv')
+    fig = px.line(df, x="status", y="number", color='station',text='number')
+    fig.update_traces(textposition="bottom right")
+
     return fig
+
+
