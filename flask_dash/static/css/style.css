@@ -9,12 +9,21 @@
 }
 
 body {
-    background-color: rgba(188, 188, 255, 0.699);
+    background-color: #d2e8f7;
 }
 
 .title{
     text-align: center;
     font-size: 80px;
+}
+
+div .container-lg{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+h1 .h1img{
+    text-align: center;
 }
 
 #PIC {

@@ -17,7 +17,7 @@ application = DispatcherMiddleware(
     {"/dash/app1": dash1.server,
      "/dash/app2": dash2.server,
      "/dash/app3": dash3.server,
-     "/dash/app4": dash4.server}
+     "/dash/app4": dash4.server,}
 )
 
 @app.route("/")

@@ -32,7 +32,7 @@ dash4.layout = html.Div([
             html.Div(id="chart-container",className="piechart"),
             html.Div(id="chart-container2",className="barchart"),],className="bigchart"),
             html.Div([
-                html.Div(id="chart-container3",className="linechart")],className='linebox'),
+            html.Div(id="chart-container3",className="linechart")],className='linebox'),
     ]),
     html.Img(src=dash4.get_asset_url("775275f2cf950299.gif"),className="imgg"),
     html.Button("", id='btn-nclicks-9', n_clicks=0, className="backbuttom"),

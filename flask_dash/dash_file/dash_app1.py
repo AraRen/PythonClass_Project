@@ -1,26 +1,22 @@
-from dash import Dash, html, dcc, callback, Output, Input
-import plotly.express as px
 import pandas as pd
+from dash import Dash, dcc, html, Input, Output, State, callback
+import dash_bootstrap_components as dbc
+import plotly.express as px
 
-df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminder_unfiltered.csv')
+dash1 = Dash(requests_pathname_prefix="/dash/app1/",external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-#這是註解
-#
-dash1 = Dash(requests_pathname_prefix="/dash/app1/")
+dash1.title = "Youbike站點車輛訊息"
 
 dash1.layout = html.Div([
-    html.H1(children='Title of Dash App', style={'textAlign':'center'}),
-    dcc.Dropdown(df.country.unique(), 'Canada', id='dropdown-selection'),
-    dcc.Graph(id='graph-content')
+    html.H1('捷運大安站Youbike站點車輛訊息'),
+    dcc.Graph(id='graph'),
 ])
-
-@callback(
-    Output('graph-content', 'figure'),
-    Input('dropdown-selection', 'value')
+   
+@dash1.callback(
+    Output("graph", "figure"),
+    Input("graph", "id")
 )
-def update_graph(value):
-    dff = df[df.country==value]
-    return px.line(dff, x='year', y='pop')
-
-if __name__ == '__main__':
-    dash1.run(debug=True)
+def update_line_chart(station):
+    df = pd.read_csv('./dash_file/Youbike1221_2.csv')
+    fig = px.line(df, x="status", y="number", color='station')
+    return fig
