@@ -24,5 +24,9 @@ application = DispatcherMiddleware(
 def index():
     return render_template("index.html")
 
+@app.route("/car")
+def car():
+    return render_template("car.html")
+
 if __name__ == "__main__":
     run_simple("localhost", 8080, application,use_debugger=True,use_reloader=True)

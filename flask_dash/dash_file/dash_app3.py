@@ -11,7 +11,7 @@ current_df = pd.DataFrame(current_data,columns=['站點名稱','更新時間','�
 current_df = current_df.reset_index()
 current_df['站點名稱'] = current_df['站點名稱'].map(lambda name:name[11:])
 
-dash3.layout = html.Div(    [
+dash3.layout = html.Div([
         dbc.Container([
             html.Div([
                 html.Div([
@@ -25,16 +25,13 @@ dash3.layout = html.Div(    [
                     html.Div([
                                 dbc.Label("站點名稱"),
                                 dbc.Input(id='input_value',
-                                          placeholder="請輸入站點名稱", type="text"),                                
+                                          placeholder="請輸入站點名稱", type="text"),
                     ])
         
                 ],className="col"),
                 html.Div([
                     html.Button('確定', id='submit-val',className="btn btn-primary")
                     ],className="col"),
-                html.Div(children="輸入內容",
-                         id="output-content",
-                         className="col"),
             ],
             className="row row-cols-auto align-items-end",
             style={"paddingTop":'2rem'}),
@@ -43,7 +40,7 @@ dash3.layout = html.Div(    [
                     dash_table.DataTable(
                         id='main_table',
                         page_size=20,
-                        style_table={'height': '300px', 'overflowY': 'auto'},
+                        style_table={'height': '400px', 'overflowY': 'auto'},
                         fixed_rows={'headers': True},
                         style_cell_conditional=[
                                 {   'if': {'column_id': 'index'},
