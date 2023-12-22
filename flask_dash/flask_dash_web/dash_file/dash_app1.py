@@ -21,5 +21,6 @@ def update_line_chart(station):
     df = pd.read_csv('./dash_file/Youbike1221_4.csv')
     fig = px.line(df, x="status", y="number", color='station',text='number')
     fig.update_traces(textposition="bottom right")
+    fig.update_layout(paper_bgcolor="rgba(0, 0, 0, 0)")
 
     return fig
