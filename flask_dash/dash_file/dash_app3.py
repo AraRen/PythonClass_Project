@@ -16,7 +16,8 @@ dash3.layout = html.Div([
             html.Div([
                 html.Div([
                     html.H1("台北市youbike及時資料")
-                ],className="col text-center")
+                ],className="col text-center"),
+                html.Div([html.A('返回首頁', href='/')]),
             ],
             className="row",
             style={"paddingTop":'2rem'}),
@@ -64,14 +65,9 @@ dash3.layout = html.Div([
             style={"paddingTop":'0.5rem'}),
             html.Div([
                 html.Div(children="",className="col",id='showMessage')
-            ],
-            className="row",
-            style={"paddingTop":'2rem'})
-
+            ],className="row",style={"paddingTop":'2rem'})
         ])
-    ],
-    className="container-lg"
-    )
+    ],className="container-lg")
 
 @callback(
         [Output('main_table','data'),Output('main_table','columns'),Output('main_table','selected_rows')],

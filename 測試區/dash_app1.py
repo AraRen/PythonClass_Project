@@ -5,10 +5,10 @@ import plotly.express as px
 
 dash1 = Dash(requests_pathname_prefix="/dash/app1/",external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-dash1.title = "大安捷運站出口-Youbike站點車輛訊息"
+dash1.title = "Youbike站點車輛訊息"
 
 dash1.layout = html.Div([
-    html.H1('        Youbike站點車輛訊息'),
+    html.H1('捷運大安站Youbike站點車輛訊息'),
     dcc.Graph(id='graph'),
     
 ])
